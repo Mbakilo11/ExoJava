@@ -144,8 +144,9 @@ public class Hello {
         System.out.println("2: ");
         b = scanner.nextInt();
 
-        a = (b - 1) + 1;
-        b = (a - 1) + 1;
+        a = a + b;
+        b = a - b;
+        a = a - b;
 
         System.out.println("a -> " + a + "\n b -> " + b  );
 
