@@ -217,8 +217,24 @@ public class Hello {
 
     }
 
-    public static  void onvertisseur () {
+    public static  void convertisseur () {
+        Scanner scanner = new Scanner(System.in);
 
+        int second;
+        int time;
+        int min;
+        int newSecond;
+
+        System.out.println("Donne moi le nombre de seconde : ");
+        second = scanner.nextInt();
+
+        time = second / 3600;
+        min = (second % 3600) / 60;
+        newSecond = second % 60;
+
+        System.out.println(time + "h : " + min + "min : " + newSecond + "s" );
+
+        scanner.close();
     }
 
     public static void main (String[] args) {
