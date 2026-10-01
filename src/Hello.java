@@ -1,5 +1,10 @@
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
+
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Random;
 import java.util.Scanner;
 
 public class Hello {
@@ -236,6 +241,361 @@ public class Hello {
 
         scanner.close();
     }
+
+    public  static void calc () {
+        Scanner scanner = new Scanner(System.in);
+        float n1 ;
+        float n2 ;
+        String op;
+        float result;
+
+        System.out.println("N1: ");
+        n1 = scanner.nextInt();
+
+        System.out.println("N2: ");
+        n2 = scanner.nextInt();
+
+        System.out.println("Quel operation tu souhaite faire: ");
+        op = scanner.nextLine();
+
+        switch (op) {
+            case "+":
+                result = n1 + n2;
+                System.out.println(n1 +" + " + n2 + " = " + result );
+                break;
+            case "*":
+                result = n1 * n2;
+                System.out.println(n1 + " * " + n2 + " = " + result );
+                break;
+            case "-":
+                result = n1 - n2;
+                System.out.println(n1 + " - " + n2 + " = " + result );
+                break;
+            case "/":
+                if(n1 == 0 || n2 == 0) {
+                    System.out.println("Erreur : division par zero");
+                    return;
+                }
+                result = n1 / n2;
+                System.out.println(n1 + " / " + n2 + " = " + result );
+                break;
+            default:
+                System.out.println("Erreur : operateur inconnu");
+        }
+
+        scanner.close();
+
+    }
+
+    public static void findNumber () {
+        Scanner console = new Scanner(System.in);
+        Random random = new Random();
+        int numberRandom = random.nextInt(100);
+        int numberUser;
+        int essaies =0;
+
+        System.out.println("Donne moi un numero");
+        numberUser = console.nextInt();
+
+        System.out.println(numberRandom);
+
+        do {
+
+            if (numberUser > numberRandom){
+                System.out.println("Plus petit !");
+                numberUser = console.nextInt();
+                essaies++;
+            } else if (numberUser < numberRandom) {
+                System.out.println("Plus Grand !");
+                numberUser = console.nextInt();
+                essaies++;
+            }
+        }
+        while (numberUser != numberRandom);
+
+        if (numberUser == numberRandom) {
+            System.out.println("Bravo Tas Trouver :) en " + essaies + "essaies");
+        }
+
+        console.close();
+    }
+
+    public  static void fizzBuzz () {
+        Scanner console = new Scanner(System.in);
+        int numberCount = 21;
+
+        for (int i = 1; i < numberCount; i ++){
+            if (i % 3 == 0 && i % 5 == 0){
+                System.out.println("FizzBuzz");
+            } else if (i % 3 == 0) {
+                System.out.println("Fizz");
+            } else if (i % 5 == 0) {
+                System.out.println("Buzz");
+            } else if (i % 7 == 0) {
+                System.out.println("Wazz");
+            }else {
+                System.out.println(i);
+            }
+        }
+    }
+
+    public static void mdpVerify() {
+        Scanner console = new Scanner(System.in);
+        String mdp;
+        String[] symbol = {"@","&", "!", "§", "%", "$", "*", "€", "£", "="};
+        boolean hasSymbol = false;
+        boolean isUppercase = false;
+        boolean isLowercase = false;
+        boolean hasNumber = false;
+
+        System.out.println("donne moi le mot de passe et je vais te dire s'il est valide :)");
+        mdp = console.nextLine();
+
+        isUppercase = Character.isUpperCase(mdp.charAt(0));
+
+
+        for (int i = 0; i < mdp.length(); i ++) {
+            if (Character.isDigit(mdp.charAt(i))) {
+                hasNumber = true;
+            }
+            if(Character.isLowerCase(mdp.charAt(i))){
+                isLowercase = true;
+            }
+            if(Character.isLowerCase(mdp.charAt(i))){
+                isLowercase = true;
+            }
+        }
+
+        for (int i = 0; i < symbol.length; i ++) {
+            if (mdp.indexOf(symbol[i]) != -1) {
+                hasSymbol = true;
+            }
+        }
+
+        if (hasSymbol && hasNumber && isLowercase && isUppercase) {
+            System.out.println("mdp valide :)");
+        } else {
+            System.out.println("mdp invalide :(");
+        }
+
+    }
+
+    public static void table() {
+        Scanner console = new Scanner(System.in);
+        int nombre = 10;
+        ArrayList<String> arrayNumber = new ArrayList<String>();
+        ArrayList<String> arrayT = new ArrayList<String>();
+        String nJoined;
+        String tJoined;
+        int [][] matrices = new int[nombre][nombre];
+        ArrayList<Integer> colomnOne = new ArrayList<Integer>();
+
+        for (int i = 0; i < nombre + 2; i++) {
+            arrayT.add("-");
+        }
+        tJoined = String.join(" ", arrayT);
+
+        for (int i = 1; i < nombre + 1; i++) {
+            arrayNumber.add(Integer.toString(i));
+        }
+        nJoined = String.join(" ", arrayNumber);
+
+        System.out.println("    " + nJoined);
+        System.out.println(tJoined);
+
+        for (int i = 1; i < nombre ; i++) {
+            for (int j = 1; j < nombre; j++) {
+                matrices[i][j] = i * j;
+            }
+        }
+
+        for (int i = 1; i < nombre ; i++) {
+            System.out.print(i + " | ");
+            for (int j = 1; j < nombre; j++) {
+                System.out.print(matrices[i][j] + " ");
+            }
+            System.out.println();
+        }
+
+    }
+
+    public static void etoile () {
+        Scanner console = new Scanner(System.in);
+        int n;
+        String etoile = "*";
+        int largeur = 50;
+        int spaces = (largeur - etoile.length()) / 2;
+
+        System.out.println("donne moi un numero et tu vera la magie :)");
+        n = console.nextInt();
+
+        /* tous les exo d'affichage de pyramide son la
+        System.out.println(etoile);
+
+
+        for (int i = 1; i < n + 1 ; i++) {
+            etoile += "*";
+            System.out.println(etoile);
+        }
+         fin Du premier */
+
+
+        /* deuxième
+        for (int i = 1; i < n + 1; i++) {
+
+            etoile += "*";
+        }
+        System.out.println(etoile);
+        for (int i = 1; i < n + 1; i++) {
+            etoile = etoile.substring(0, etoile.length() - 1);
+            System.out.println(etoile);
+        }
+        Fin du deuxième */
+
+        //System.out.println(etoile);
+
+        /* le troisième
+        for (int i = 0; i < n; i++) {
+
+            for (int j = 0; j < n - i - 1; j++) {
+                System.out.print(" ");
+            }
+
+            for (int j = 0; j < 2 * i + 1; j++) {
+                System.out.print("*");
+            }
+
+            System.out.println();
+        } */
+
+
+        // Bonus
+        for (int i = 0; i < n; i++) {
+
+            for (int j = 0; j < n - i - 1; j++) {
+                System.out.print(" ");
+            }
+
+            for (int j = 0; j < 2 * i + 1; j++) {
+                System.out.print("*");
+            }
+
+            System.out.println();
+        }
+
+        for (int i = n-2; i >=0 ; i--) {
+            for (int j = 0; j < n - i - 1; j++) {
+                System.out.print(" ");
+            }
+
+            for (int j = 0; j < 2 * i + 1; j++) {
+                System.out.print("*");
+            }
+            System.out.println();
+        }
+    }
+
+    // -------------------------------
+
+    public static int verifyRomain (char value){
+        switch (value) {
+            case 'I': return 1;
+            case 'V': return 5;
+            case 'X': return 10;
+            case 'L': return 50;
+            case 'C': return 100;
+            case 'D': return 500;
+            case 'M': return 1000;
+            default: return 0;
+        }
+    }
+
+    public static void convRomain () {
+        Scanner console = new Scanner(System.in);
+        String value;
+        int result = 0;
+
+        System.out.println("Donne moi un numero");
+        value = console.nextLine();
+
+        for (int i = 0; i < value.length(); i++) {
+            char v = value.charAt(i);
+            int valor = verifyRomain(v);
+
+            if (i + 1 < value.length()) {
+
+                char suivant = value.charAt(i + 1);
+                int valeurSuivante = verifyRomain(suivant);
+
+
+                if (valor < valeurSuivante) {
+                    result -= valor;
+                } else {
+                    result += valor;
+                }
+
+            } else {
+                result += valor;
+            }
+        }
+        System.out.println("Le résultat est : " + result);
+    }
+
+    // ------------------------------
+
+    public static int max(int[] value) {
+        int maxValue = value[0];
+
+        for (int i = 0; i < value.length; i++) {
+            if ( value[i] > maxValue) {
+                maxValue = value[i];
+            }
+        }
+        return maxValue;
+    }
+
+    public static int min(int[] value) {
+        int minValue = value[0];
+
+        for (int i = 0; i < value.length; i++) {
+            if ( value[i] < minValue) {
+                minValue = value[i];
+            }
+        }
+        return minValue;
+    }
+
+    public static int moyenne(int[] value) {
+
+        Arrays.sort(value);
+
+        int index = value.length / 2;
+        int m = value[index];
+
+        return m;
+    }
+
+    public static double ecartType (int[] value ) {
+        double ecart = 0;
+        double moyenne = Arrays.stream(value).average().orElse(0);
+
+        for (int i = 0; i < value.length; i++) {
+            ecart += Math.pow(value[i] - moyenne, 2);
+        }
+        return Math.sqrt(ecart / value.length);
+    }
+
+    public static void checkArray() {
+        int[] numbers = {10, 20, 30, 40, 50};
+        int max = max(numbers);
+        int min = min(numbers);
+        int moyenne = moyenne(numbers);
+        double et = ecartType(numbers);
+
+        System.out.println("max -> " + max + "\nmin -> " + min + "\nmoyenne -> " + moyenne + "\necart -> " + et);
+    }
+
+    //------------------------------------
 
     public static void main (String[] args) {
 
