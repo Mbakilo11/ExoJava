@@ -1,11 +1,7 @@
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 
-import java.lang.reflect.Array;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Random;
-import java.util.Scanner;
+import java.util.*;
 
 public class Hello {
 
@@ -556,7 +552,6 @@ public class Hello {
 
     public static int min(int[] value) {
         int minValue = value[0];
-
         for (int i = 0; i < value.length; i++) {
             if ( value[i] < minValue) {
                 minValue = value[i];
@@ -577,7 +572,7 @@ public class Hello {
 
     public static double ecartType (int[] value ) {
         double ecart = 0;
-        double moyenne = Arrays.stream(value).average().orElse(0);
+        double moyenne = moyenne(value);
 
         for (int i = 0; i < value.length; i++) {
             ecart += Math.pow(value[i] - moyenne, 2);
@@ -596,8 +591,180 @@ public class Hello {
     }
 
     //------------------------------------
+    
+    public static void gestionListCourse() {
+        Scanner console = new Scanner(System.in);
+        String produit;
+        int op = 0;
+        ArrayList<String> listProduits = new ArrayList<String>();
+
+        while (op != 6) {
+            System.out.println("Dis moi quelle operation tu vais faire : \n1-Rajouter un article\n2-Supprimer un article\n3-Rechercher Avec le nom\n4-Afficher la liste\n5-Quitter");
+            op = console.nextInt();
+
+            console.nextLine();
+
+            if (op == 1) {
+                System.out.println("Nom d'article a rajouter: ...");
+                produit = console.nextLine();
+                
+                listProduits.add(produit);
+                System.out.println("success");
+            } else if (op == 2) {
+                System.out.println("Nom d'article a supprimer: ...");
+                produit = console.nextLine();
+
+                if (!listProduits.isEmpty() || listProduits.indexOf(produit) != -1) {
+                    listProduits.remove(produit);
+                    System.out.println("Article supprimé");
+                } else {
+                    System.out.println("article n'existe pas");
+                }
+            } else if (op == 3) {
+                System.out.println("Nom d'article a rechercher: ...");
+                produit = console.nextLine();
+                if (!listProduits.isEmpty() || listProduits.indexOf(produit) != -1) {
+                    System.out.println("cet article est bien sur la liste " + listProduits.get(listProduits.indexOf(produit)));
+                    System.out.println("__________________________");
+                } else {
+                    System.out.println("article n'existe pas");
+                }
+
+            } else if (op == 4) {
+                for (int i = 0; i < listProduits.size(); i++) {
+                    System.out.println(listProduits.get(i));
+                }
+                System.out.println("__________________________");
+            } else if (op == 5) {
+                System.out.println("Fermeture de l'App...");
+            }else {
+                System.out.println("Option invalide");
+            }
+        }
+    }
+
+    public static void coutWorlds() {
+        String phrase;
+        String regex = "[,\\.\\s]";
+        Set<String> motUniques = new HashSet<String>();
+
+        IO.println("Donne moi une phrase et on le compte ensemble :)"); // raccourci pour system.out.println
+        phrase = IO.readln();
+
+        String[] listMots = phrase.split(regex);
+        for (String s : listMots){
+            IO.println(s);
+            motUniques.add(s);
+        }
+        IO.println("Total :" + listMots.length + " mots, " + motUniques.size() + " mots uniques" );
+
+    }
+
+    public static void doubleWorld() {
+        int[] array = {1,2,3,2,4,3,5};
+        ArrayList<Integer> hasDouble = new ArrayList<Integer>();
+
+        for (int i = 0; i < array.length; i++) {
+            for (int j = i +1; j < array.length; j++) {
+                if (array[i] == array[j]) {
+                    hasDouble.add(array[i]);
+                }
+            }
+        }
+
+        for (int s : hasDouble) {
+            IO.println(s);
+        }
+    }
+
+    public static void miniCarnet () {
+        Scanner console = new Scanner(System.in);
+        ContactData data = new ContactData();
+        String name;
+        String tel;
+        String email;
+        String ville;
+        int op = 0;
+
+        System.out.println("Bienvenue à ContactBooks !");
+
+        while (op != 6) {
+            System.out.println("Dis moi quelle operation tu vais faire : \n1-Ajouer un contact\n2-Rechercher par nom\n3-filter par ville\n4-supprimer un contact\n5-Afficher tous les contacts\n6-Fermer l'App");
+            op = console.nextInt();
+
+            console.nextLine();
+
+            if (op == 1) {
+                System.out.println("Nom: ");
+                name = console.nextLine();
+
+                System.out.println("Tel: ");
+                tel = console.nextLine();
+
+                System.out.println("Email: ");
+                email = console.nextLine();
+
+                System.out.println("Ville: ");
+                ville = console.nextLine();
+
+                data.Resgister(name, tel, email, ville);
+
+            } else if (op == 2) {
+                System.out.println("Rechercher contact: ....");
+                name = console.nextLine();
+                data.searchName(name);
+            } else if (op == 3) {
+                System.out.println("ville: ....");
+                ville = console.nextLine();
+                data.filterByCity(ville);
+            } else if (op == 4) {
+                System.out.println("Supprime contact: ....");
+                name = console.nextLine();
+                data.deleteContact(name);
+            }else if (op == 5) {
+                data.showAll();
+            } else if (op == 6) {
+                System.out.println("Fermeture de ContactBooks...");
+            } else {
+                System.out.println("Option invalide");
+            }
+        }
+    }
+
+    //  -----------------------------------------------------a terminer ....
+
+
+    public static int checking (Cartes a, Cartes b) {
+        if (a.couleur != b.couleur) {
+            return a.couleur - b.couleur;
+        }
+
+        return a.valeur - b.valeur;
+    }
+
+    public static void tri (Cartes[] args) {
+
+        for (int i = 0; i < args.length; i++) {
+            for (int j = i + 1; j < args.length; j++) {
+                if(checking(args[i], args[j]) > 0){
+
+                }
+            }
+        }
+    }
+
+    public static void jeuxCartes () {
+        Cartes[] main = {
+                new Cartes(Cartes.dame, Cartes.trefle),
+                new Cartes(Cartes.valet, Cartes.coeuer),
+                new Cartes(Cartes.roi, Cartes.carreau),
+                new Cartes(Cartes.as, Cartes.pique),
+        };
+
+    }
+
+    // ------------------------------------------
 
     public static void main (String[] args) {
-
     }
 }
